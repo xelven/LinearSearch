@@ -1,0 +1,109 @@
+/*
+ * Assumptions
+ * -----------
+ *  The items are sorted
+ *  Items will be non-NULL
+ *  There are no duplicate items
+ *  n_items will be > 0
+ */
+
+linear search test plan
+
+this test plan included 3 parts:
+- functional test.
+- fault tolerance testing.
+- performance test.
+
+
+1. functional test.
+my functional testing include 2 part, I call it general functional test and random functional test.
+
+A. general functional test: (implemented in SearchTestCase.cpp,TestType::FunctionalTest)
+write the input(test parameter) and output(your expect result).
+	
+	1).take 2 or more fixed items array, one ascending , one descending.
+	2).base on the items array to write the test case. 
+	(here is mine below:)
+
+		A). base on one ascending items , key = minimum (or maximum) of items, please keep use same value to test each five types. 
+		then check that the result isn't that your expect.
+			For Example: 
+			the input items array [0, 2, 4, 6, 8] (ascending order), Key = 0.
+			+-----+-------------------+----------------+--------------+
+			| Key | Type              | Expect Returns | Expect Index |
+			+-----+-------------------+----------------+--------------+
+			|  0  | Equals            | FoundExact     |       0      |
+			+-----+-------------------+----------------+--------------+
+			|  0  | GreaterThanEquals | FoundExact     |       0      |
+			+-----+-------------------+----------------+--------------+
+			|  0  | GreaterThan       | FoundGreater   |       1      |
+			+-----+-------------------+----------------+--------------+
+			|  0  | LessThanEquals    | FoundExact     |       0      |
+			+-----+-------------------+----------------+--------------+
+			|  0  | LessThan	  | NotFound       |      -1      |
+			+-----+-------------------+----------------+--------------+
+
+			
+		B). then just change the items and to descending, keep the other parameter. test each five types.
+		result should be same, just focus on index.
+			For Example: 
+			the input items array [8, 6, 4, 2, 0] (descending order), Key = 0.
+
+		C). put key number between the minimum and maximum of the items array (NOT EQUALS). test each five types.
+			For Example: 
+			the input items array [0, 2, 4, 6, 8] (ascending order), Key = 5.
+
+		D). put key number between the minimum and maximum of the items array (EQUALS). test each five types.
+			For Example: 
+			the input items array [8, 6, 4, 2, 0] (descending order), Key = 4.
+
+		E). put key number out of the range in items array. test each five types.
+			For Example: 
+			the input items array [0, 2, 4, 6, 8] (ascending order), Key = 10.
+
+		F). put the any key number and search type for free test.
+			
+
+B. random functional test: (implemented in SearchTestCase.cpp, TestType::RandomFunctionalTest)
+input composed of random values, need to check the output by manually.
+random of the n_items, ascending, key, type and items data.
+
+output like this : 
+------------------------------------------
+items = [50,33,23,12,6,-1,-7,-15,-25,]
+key = [-6] : searchType = [LessThanEquals] : 
+Result is FOUND LESS - index = 6
+-------------------------------------------
+
+
+
+2. fault tolerance testing.
+the normal functional method should be verify the input conditions first.
+As Assumptions, I just added the if the user input the wrong SearchType in this case.
+
+
+
+
+3. performance test.
+record every time the method is called.
+should be loading test when the a large of items array data, base on Lowest order support devices.  
+then check that time isn't that your expect.
+
+
+
+
+
+------------------------------------------------
+
+
+Incomplete function:
+1.Load test case file for functional test.
+define the test case file protocol for input & output, report the test result.
+
+
+2.if can be cache(memory,disk,None) the input conditions and output result, For the most commonly input conditions.
+
+
+
+------------------------------------------------
+
